@@ -18,5 +18,14 @@ for line in datalines:
 fhandle=open("1.html","wb")
 fhandle.write(data)
 fhandle.close()
+print(file.info())
+print(file.getcode())
+print(file.geturl())
 
-filename=urllib.
+filename=urllib.request.urlretrieve("http://edu.51cto.com","2.html")
+urllib.request.urlcleanup()
+
+quoteurl=urllib.request.quote("http://www.sina.com.cn")
+print(quoteurl)
+unquote=urllib.request.unquote(quoteurl)
+print(unquote)
