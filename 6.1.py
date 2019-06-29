@@ -17,7 +17,7 @@ def craw(url,page):
     result1=result1[0]
     print("=============")
     print(result1)
-    pat2='<img width="220" height="220" data-img="1" src="//(.+?jpg)" '
+    pat2 = '<img width="220" height="220" data-img="1" src="//(.+?\.jpg)">'
     imagelist=re.compile(pat2).findall(result1)
     print("=============????????")
     print(imagelist)
