@@ -33,7 +33,7 @@ def craw(url,page):
             if hasattr(e,"reason"):
                 x+=1
         x+=1
-for i in range(1,2):
+for i in range(1,5):
     url="https://list.jd.com/list.html?cat=9987,653,655&page="+str(i)
     craw(url,i)
 
