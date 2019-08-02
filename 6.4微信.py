@@ -35,7 +35,7 @@ def use_proxy(proxy_addr,url):
 def getlisturl(key,pagestart,pageend,proxy):
     try:
         page=pagestart
-        keycode=urllib,re.quote(key)
+        keycode=urllib.request.quote(key)
         pagecode=urllib.request.quote("&page")
         for page in range(pagestart,pageend+1):
             url="http://weixin.sogou.com/weixin?type=2&query="+keycode+pagecode+str(page)
@@ -108,5 +108,5 @@ proxy2=""
 pagestart=1
 pageend=2
 listurl=getlisturl(key,pagestart,pageend,proxy)
-getcontent(listurl,proxy)
+getcontent(str(listurl),proxy)
 
