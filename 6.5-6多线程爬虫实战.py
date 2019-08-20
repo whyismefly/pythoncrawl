@@ -80,3 +80,32 @@ class geturl(threading.Thread):
         for page in range(self.pagestart,self.pageend+1):
             url="http://weixin.sougou.com/weixin?type=2&query="+keycode+pagecode+str(page)
             data1=use_proxy(self.proxy,url)
+            listurlpat='<div class="txt_box">.*?(http://.*)"'
+            listurl.append(re.compile(listurlpat,re.S).findall(data1))
+        print("get page "+str(len(listurl)))
+        for i in range(0,len(listurl)):
+            time.sleep(7)
+            for j in range(0,len((listurl[i]))):
+                try:
+                    url=listurl[i][j]
+                    url=url.replace("amp;","")
+                    print("第"+str(i)+"i"+str(j)+"j次入队")
+                    self.urlqueue.put(url)
+                    self.urlqueue.task_done()
+                except urllib.error.URLError as e:
+                    if hasattr(e, "code"):
+                        print(e.code)
+                    if hasattr(e, "reason"):
+                        print(e.reason)
+                    time.sleep(10)
+                except Exception as e:
+                    print("excption:" + str(e))
+                    time.sleep(1)
+
+class getcontent(threading.Thread):
+    def __init__(self,urlqueue,proxy):
+        threading.Thread.__init__(self)
+        self.urlqueue=urlqueue
+        self.proxy=proxy
+    def run(self):
+        html1='''<!DOCTYPE html PUBLIC '''
