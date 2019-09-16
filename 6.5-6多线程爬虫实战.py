@@ -108,4 +108,5 @@ class getcontent(threading.Thread):
         self.urlqueue=urlqueue
         self.proxy=proxy
     def run(self):
-        html1='''<!DOCTYPE html PUBLIC '''
+        html1='''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Trasition//EN"
+        "http://www.w3.org/1999/xhtml'''
