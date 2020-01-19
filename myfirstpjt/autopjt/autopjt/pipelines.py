@@ -11,12 +11,22 @@ import json
 class AutopjtPipeline(object):
 
     def __init__(self):
-        self.file = codecs.open("mydata.json","wb",encoding="utf-8")
+        self.file = codecs.open("mydata2.json","wb",encoding="utf-8")
 
     def process_item(self, item, spider):
-        i = json.dumps(dict(item), ensure_ascii=False)
-        line = i +'\n'
-        self.file.write(line)
+        # i = json.dumps(dict(item), ensure_ascii=False)
+        # line = i +'\n'
+        # self.file.write(line)
+        # return item
+        for j in range(0,len(item["name"])):
+            name = item["name"][j]
+            price = item["price"][j]
+            comnum = item["comnum"][j]
+            link = item["link"][j]
+            goods={"name":name,"price":price,"comnum":comnum,"link":link}
+            i = json.dumps(dict(goods),ensure_ascii=False)
+            line = i + '\n'
+            self.file.write(line)
         return item
 
     def close_spider(self,spider):
