@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for myfirstpjt project
+# Scrapy settings for mypjt project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,34 +9,17 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'myfirstpjt'
+BOT_NAME = 'mypjt'
 
-SPIDER_MODULES = ['myfirstpjt.spiders']
-NEWSPIDER_MODULE = 'myfirstpjt.spiders'
+SPIDER_MODULES = ['mypjt.spiders']
+NEWSPIDER_MODULE = 'mypjt.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'myfirstpjt (+http://www.yourdomain.com)'
+#USER_AGENT = 'mypjt (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
-
-IPPOOL=[
-    {"ipaddr": "112.111.77.30:9999"},
-    {"ipaddr": "60.167.23.137:9999"},
-    {"ipaddr": "114.226.245.249:9999"},
-    {"ipaddr": "113.121.23.142:9999"},
-    {"ipaddr": "115.239.26.92:9999"},
-    {"ipaddr": "112.84.73.139:9999"}
-
-]
-
-UAPOOL=[
-    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.22 Safari/537.36 SE 2.X MetaSr 1.0",
-    "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0",
-    "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.5"
-]
-
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -64,20 +47,14 @@ UAPOOL=[
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'myfirstpjt.middlewares.MyfirstpjtSpiderMiddleware': 543,
+#    'mypjt.middlewares.MypjtSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-   # 'myfirstpjt.middlewares.MyfirstpjtDownloaderMiddleware': 543,
-   #  'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware':123,
-    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware':123,
-    'myfirstpjt.middlewares.IPPOOLS':125,
-    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware':2,
-    'myfirstpjt.uamid.Uamid':1
-
-}
+#DOWNLOADER_MIDDLEWARES = {
+#    'mypjt.middlewares.MypjtDownloaderMiddleware': 543,
+#}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -87,9 +64,9 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'myfirstpjt.pipelines.MyfirstpjtPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'mypjt.pipelines.MypjtPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
