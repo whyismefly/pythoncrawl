@@ -3,17 +3,22 @@ import scrapy
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 
-from mysqlpjt.mysqlpjt.items import MysqlpjtItem
+from mysqlpjt.items import MysqlpjtItem
 
 
 class WeiweiSpider(CrawlSpider):
     name = 'weiwei'
     allowed_domains = ['sina.com.cn']
-    start_urls = ['http://sina.com.cn/']
+    start_urls = ['http://news.sina.com.cn/']
+
+    # rules = (
+    #     Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),
+    # )
 
     rules = (
-        Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),
+        Rule(LinkExtractor(allow=('.*?/[0-9]{4}.[0-9]{2}.[0-9]{2}.doc-.*?shtml'),allow_domains=('sina.com.cn')), callback='parse_item', follow=True),
     )
+
 
     def parse_item(self, response):
         item = MysqlpjtItem()
