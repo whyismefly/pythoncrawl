@@ -11,4 +11,8 @@ import scrapy
 class HexunpjtItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    # pass
+    name = scrapy.Field()
+    url = scrapy.Field()
+    hits = scrapy.Field()
+    comment = scrapy.Field()
