@@ -9,7 +9,8 @@ class MyhexunspdSpider(scrapy.Spider):
     name = 'myhexunspd'
     allowed_domains = ['hexun.com']
     # start_urls = ['http://hexun.com/']
-    uid = "19940007"
+    # uid = "19940007"
+    uid = "shihanbingblog"
 
     def start_requests(self):
         yield Request("http://"+str(self.uid)+".blog.hexun.com/p1/default.html",
