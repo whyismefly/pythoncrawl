@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # encoding:utf-8
 
-import http.cookiejar,urllib.request
+import http.cookiejar, urllib.request
 
 # cookie = http.cookiejar.CookieJar()
 # handler = urllib.request.HTTPCookieProcessor(cookie)
@@ -78,6 +78,54 @@ import re
 # r = requests.get("http://www.zhihu.com",cookies=jar,headers=headers)
 # print(r.text)
 
+# s = requests.Session()
+# s.get('http://httpbin.org/cookies/set/number/123456789')
+# r=s.get('http://httpbin.org/cookies')
+# print(r.text)
+
+# response = requests.get('https://www.12306.cn',verify=False)
+# print(response.status_code)
 
 
+# from requests.packages import urllib3
+#
+# urllib3.disable_warnings()
+# response = requests.get('https://www.12306.cn', verify=False)
+# print(response.status_code)
+
+
+# proxies = {
+#     'http': "http://10.10.1.10:3128",
+#     'https': "http://10.10.1.10:1080",
+# }
+# requests.get("https://www.taobao.com", proxies=proxies)
+
+# from requests.auth import HTTPBasicAuth
+#
+# r=requests.get('http://localhost:5000',auth=HTTPBasicAuth('whyismefly','1q2w3e4r5t6y'))
+# print(r.status_code)#yichang
+
+from requests import Request, Session
+
+# url = 'http://httpbin.org/post'
+# data = {
+#     'name': 'germey'
+# }
+# headers = {
+#     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36'
+# }
+# s = Session()
+# req = Request('post', url, data=data, headers=headers)
+# prepped = s.prepare_request(req)
+# r = s.send(prepped)
+# print(r.text)
+
+import re
+
+# content='Hello 123 4567 World_This is a Regex Demo'
+# print(len(content))
+# result=re.search('<Hello\s\d\d\d\s\d{4}\s\w{10}',content)
+# print(result)
+# print(result.group()) #'NoneType' object has no attribute 'group'
+# print(result.span())
 
