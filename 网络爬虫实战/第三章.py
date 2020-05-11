@@ -122,10 +122,30 @@ from requests import Request, Session
 
 import re
 
-# content='Hello 123 4567 World_This is a Regex Demo'
+# content = 'Hello 123 4567 World_This is a Regex Demo'
 # print(len(content))
-# result=re.search('<Hello\s\d\d\d\s\d{4}\s\w{10}',content)
+# result = re.search('<Hello\s\d\d\d\s\d{4}\s\w{10}', content)
 # print(result)
-# print(result.group()) #'NoneType' object has no attribute 'group'
+# print(result.group())  # 'NoneType' object has no attribute 'group'
 # print(result.span())
+
+# content = 'Hello 123 4567 World_This is a Regex Demo'
+# result = re.match('^He.*(\d+).*Demo$', content)
+# print(result)
+# print(result.group(1))
+
+# content = 'Hello 123 4567 World_This is a Regex Demo'
+# result = re.match('^He.*?(\d+).*Demo$', content)
+# print(result)
+# print(result.group(1))
+# print(result.span())
+
+content = 'http://weibo.com/comment/kEraCN'
+resultl = re.match('http.*?comment/(.*?)', content)
+result2 = re.match('http.*?comment/(.*)', content)
+print('resultl', resultl.group(1))
+print('result2', result2.group(1))
+
+
+
 
