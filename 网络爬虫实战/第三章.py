@@ -140,11 +140,111 @@ import re
 # print(result.group(1))
 # print(result.span())
 
-content = 'http://weibo.com/comment/kEraCN'
-resultl = re.match('http.*?comment/(.*?)', content)
-result2 = re.match('http.*?comment/(.*)', content)
-print('resultl', resultl.group(1))
-print('result2', result2.group(1))
+# content = 'http://weibo.com/comment/kEraCN'
+# resultl = re.match('http.*?comment/(.*?)', content)
+# result2 = re.match('http.*?comment/(.*)', content)
+# print('resultl', resultl.group(1))
+# print('result2', result2.group(1))
+
+# content = 'Hello 123 4567 World_This is a Regex Demo'
+# result = re.match('^He.*?(\d+).*?Demo$', content,re.S)
+# print(result.group(1))
+# print(result.span())
+
+# content="(百度)www.baidu.com"
+# result = re.match('\(百度\)www\.baidu\.com',content)
+# print(result)
+
+# html ='''＜ div id="songs-list" >
+# <h2 class ＝Title ”〉经典老歌＜／ h2>
+# <p class=” introduction ”>
+# 经典老歌y1J 农
+# <Ip>
+# <ul id=” list” class=” list-group”>
+# <li data-view="2 ”〉一路上有你＜／ li>
+# <li data-view="7 ”>
+# <a href ＝”／ 2.mp3 ” singer="任贤齐">沧海一卢笑</a>
+# </li>
+# <li data-view=” 4 ” class=” active">
+# 。href ＝”／ 3 .mp3 ” singer="齐泰">往事随风</a>
+# </li>
+# <li data-view ＝飞”＞＜ a href="/4.mp3 " singer="beyo nd ">尤辉岁月</a><lli>
+# <li data-view=” 5”>< a href="/S.mp3 ” singer~ ”除A也琳”〉记事本＜／ a><lli>
+# <li data-view=” 5’'>
+# 。href ＝”／ 6.mp3 ” singer ＝”邓丽君、但愿人长久＜ l a>
+# <lli>
+# </ul>
+# </div>'''
+# result=re.search('<li.*?singer="(.*?)">(.*?)</a>',html,re.S)
+# if result:
+#     print(result.group(0),result.group(1),result.group(2))
+#     print(result.group())
+
+# results= re.findall('<li.*?href="(.*?)".*?singer="(.*?)">(.*?)</a>',html,re.S)
+# print(results)
+# print(type(results))
+# for result in results:
+#     print(result)
+#     print(result[0],result[1],result[2])
+
+# content1='2016-12-15 12:00'
+# content2='2016-12-17 12:55'
+# content3='2016-12-22 13:21'
+# pattern=re.compile('\d{2}:\d{2}')
+# result1=re.sub(pattern,'',content1)
+# result2=re.sub(pattern,'',content2)
+# result3=re.sub(pattern,'',content3)
+# print(result1,result2,result3)
+
+#3.4
+
+def get_one_page(url):
+    headers={
+        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'
+    }
+    response=requests.get(url,headers=headers)
+    if response.status_code==200:
+        return response.text
+    return None
+def main():
+    url='http://maoyan.com/board/4'
+    html=get_one_page(url)
+    print(html)
+def parse_one_page(html):
+    patten=re.compile()
+    items=re.findall(patten,html)
+    print(items)
+    for item in items:
+        yield {
+            'index':item[0],
+            'image': item[1],
+            'title': item[2].strip(),
+            'actor': item[3].strip()[3:]if len(item[3])>3 else '',
+            'time': item[4].strip()[5:]if len(item[4])>5 else '',
+            'score': item[5].strip()+item[6].strip()
+        }
+
+main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
