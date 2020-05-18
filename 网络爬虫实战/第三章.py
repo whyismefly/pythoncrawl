@@ -197,7 +197,9 @@ import re
 # print(result1,result2,result3)
 
 #3.4
-
+import time
+from requests.exceptions import RequestException
+import json
 def get_one_page(url):
     headers={
         'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'
@@ -211,8 +213,10 @@ def main():
     html=get_one_page(url)
     print(html)
 def parse_one_page(html):
-    patten=re.compile()
-    items=re.findall(patten,html)
+    pattern = re.compile('<dd>.*?board-index.*?>(\d+)</i>.*?<a.*?src="(.*?)">.*?name"><a'
+                         + '.*?>(.*?)</a>.*?star">(.*?)</p>.*?releasetime">(.*?)</p>'
+                         + '.*?integer">(.*?)</i>.*?fraction">(.*?)</i>.*?</dd>', re.S)
+    items=re.findall(pattern,html)
     print(items)
     for item in items:
         yield {
@@ -223,8 +227,19 @@ def parse_one_page(html):
             'time': item[4].strip()[5:]if len(item[4])>5 else '',
             'score': item[5].strip()+item[6].strip()
         }
-
-main()
+def write_to_file(content):
+    with open('result.txt', 'a', encoding='utf-8') as f:
+        f.write(json.dumps(content, ensure_ascii=False) + '\n')
+def main(offset):
+    url = 'http://maoyan.com/board/4?offset=' + str(offset)
+    html = get_one_page(url)
+    for item in parse_one_page(html):
+        print(item)
+        write_to_file(item)
+if __name__ == '__main__':
+    for i in range(10):
+        main(offset=i * 10)
+        time.sleep(1)
 
 
 
