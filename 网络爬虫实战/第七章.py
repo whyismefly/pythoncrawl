@@ -109,11 +109,21 @@ from selenium.common.exceptions import NoSuchElementException
 # browser.switch_to_window(browser.window_handles[0])
 # browser.get('http://python.org')
 
+# browser = webdriver.Chrome()
+# browser.get('https://www.baidu.com/')
+# browser.find_element_by_id('hello')
+
 browser = webdriver.Chrome()
-browser.get('https://www.baidu.com/')
-browser.find_element_by_id('hello')
-
-
+try:
+    browser.get('https://www.baidu.com/')
+except TimeoutError:
+    print('time out')
+try:
+    browser.find_element_by_id('hello')
+except NoSuchElementException:
+    print('no element')
+finally:
+    browser.close()
 
 
 
