@@ -15,7 +15,6 @@ PASSWORD = ''
 BORDER = 6
 INIT_LEFT = 60
 
-
 class CrackGeetest():
     def __init__(self):
         self.url = 'https://account.geetest.com/login'
