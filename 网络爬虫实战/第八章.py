@@ -15,6 +15,7 @@ PASSWORD = ''
 BORDER = 6
 INIT_LEFT = 60
 
+
 class CrackGeetest():
     def __init__(self):
         self.url = 'https://account.geetest.com/login'
@@ -28,7 +29,7 @@ class CrackGeetest():
 
     def get_geetest_button(self):
         """
-        获取出事验证码按钮
+        获取初始验证按钮
         :return:
         """
         button = self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'geetest_radar_tip')))
@@ -82,8 +83,10 @@ class CrackGeetest():
         :return: None
         """
         self.browser.get(self.url)
-        email = self.wait.until(EC.presence_of_element_located((By.ID, 'email')))
-        password = self.wait.until(EC.presence_of_element_located((By.ID, 'password')))
+        email = self.wait.until(EC.presence_of_element_located(
+            (By.XPATH, '//*[@id="base"]/div[2]/div/div[2]/div[3]/div/form/div[1]/div/div[1]/input')))
+        password = self.wait.until(EC.presence_of_element_located(
+            (By.XPATH, '//*[@id="base"]/div[2]/div/div[2]/div[3]/div/form/div[2]/div/div[1]/input')))
         email.send_keys(self.email)
         password.send_keys(self.password)
 
@@ -111,9 +114,10 @@ class CrackGeetest():
         :param y: 位置y
         :return: 像素是否相同
         """
+        # 取两个图片的像素点
         pixel1 = image1.load()[x, y]
         pixel2 = image2.load()[x, y]
-        threshold = 60
+        threshold = 10
         if abs(pixel1[0] - pixel2[0]) < threshold and abs(pixel1[1] - pixel2[1]) < threshold and abs(
                 pixel1[2] - pixel2[2]) < threshold:
             return True
@@ -126,11 +130,17 @@ class CrackGeetest():
         :param distance: 偏移量
         :return: 移动轨迹
         """
+        # 移动轨迹
         track = []
+        # 当前位移
         current = 0
+        # 减速阈值
         mid = distance * 4 / 5
+        # 计算间隔
         t = 0.2
+        # 初速度
         v = 0
+
         while current < distance:
             if current < mid:
                 # 加速度为正2
@@ -206,6 +216,7 @@ class CrackGeetest():
             self.crack()
         else:
             self.login()
+
 
 if __name__ == '__main__':
     crack = CrackGeetest()
