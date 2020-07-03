@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 # encoding:utf-8
 
-TIMEOUT = 10
-# from weixin.config import *
+from config import *
 from requests import Request
 
 
