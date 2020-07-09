@@ -28,7 +28,7 @@ class Spider():
     }
     session = Session()
     queue = RedisQueue()
-    mysql = MySQL()
+    mysql = MySql()
 
     def get_proxy(self):
         """
