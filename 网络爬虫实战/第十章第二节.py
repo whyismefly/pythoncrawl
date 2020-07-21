@@ -67,29 +67,85 @@
 #             print('exception', e.args)
 
 
-import json
-from flask import Flask, g
+# import json
+# from flask import Flask, g
+#
+# app = Flask(__name__)
+# GENERATOR_MAP = {
+#     'weibo': 'WeiboCookiesGenerator'
+# }
+#
+#
+# @app.route('/')
+# def index():
+#     return '<h2>cookie pool</h2>'
+#
+#
+# def get_conn():
+#     for website in GENERATOR_MAP:
+#         if not hasattr(g, website):
+#             setattr(g, website + '_cookies', eval('redisclient' + '("cookies","' + website + '")'))
+#             return g
+#
+#
+# @app.route('/')
+# def random(website):
+#     g = get_conn()
+#     cookies = getattr(g, website + '_cookies').random()
+#     return cookies
 
-app = Flask(__name__)
-GENERATOR_MAP = {
-    'weibo': 'WeiboCookiesGenerator'
-}
+
+import time
+from multiprocessing import Process
+from cookiespool.api import app
+from cookiespool.config import *
+from cookiespool.generator import *
+from cookiespool.tester import *
 
 
-@app.route('/')
-def index():
-    return '<h2>cookie pool</h2>'
+class Scheduler(object):
+    @staticmethod
+    def valid_cookie(cycle=CYCLE):
+        while True:
+            print('检测开始运行')
+            try:
+                for website, cls in TESTER_MAP.items():
+                    tester = eval(cls + '(website="' + website + '")')
+                    tester.run()
+                    print('检测完成')
+                    del tester
+                    time.sleep(cycle)
+            except Exception as e:
+                print(e.args)
 
+    @staticmethod
+    def generate_cookie(cycle=CYCLE):
+        while True:
+            print('cookie生成')
+            try:
+                for website, cls in GENERATOR_MAP.items():
+                    generator = eval(cls + '(website="' + website + '")')
+                    generator.run()
+                    print("cookie生成")
+                    generator.close()
+                    time.sleep(cycle)
+            except Exception as e:
+                print(e.args)
 
-def get_conn():
-    for website in GENERATOR_MAP:
-        if not hasattr(g, website):
-            setattr(g, website + '_cookies', eval('redisclient' + '("cookies","' + website + '")'))
-            return g
+    @staticmethod
+    def api():
+        print("api working")
+        app.run(host=API_HOST, port=API_PORT)
 
+    def run(self):
+        if API_PROCESS:
+            api_process = Process(target=Scheduler.api)
+            api_process.start()
 
-@app.route('/')
-def random(website):
-    g = get_conn()
-    cookies = getattr(g, website + '_cookies').random()
-    return cookies
+        if GENERATOR_PROCESS:
+            generator_process = Process(target=Scheduler.generate_cookie)
+            generator_process.start()
+
+        if VALID_PROCESS:
+            valid_process = Process(target=Scheduler.valid_cookie)
+            valid_process.start()
