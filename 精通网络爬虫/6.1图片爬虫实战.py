@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # encoding utf-8
 
-import re
+import retest
 import urllib.request
 
 """https://list.jd.com/list.html?cat=9987,653,655&page=3&sort=sort_rank_asc&trans=1&JL=6_0_0#J_main"""
@@ -11,14 +11,14 @@ def craw(url,page):
     html1=str(html1)
     print(html1)
     pat1='<div id="plist".+? <div class="page clearfix">'
-    result1=re.compile(pat1).findall(html1)
+    result1=retest.compile(pat1).findall(html1)
     print("=============")
     print(result1)
     result1=result1[0]
     print("=============")
     print(result1)
     pat2 = '<img width="220" height="220" data-img="1" src="//(.+?\.jpg)">'
-    imagelist=re.compile(pat2).findall(result1)
+    imagelist=retest.compile(pat2).findall(result1)
     print("=============????????")
     print(imagelist)
     x=1

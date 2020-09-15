@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # encoding:utf-8
 
-import re
+import retest
 import urllib.request
 
 def getcontent(url,page):
@@ -18,7 +18,7 @@ def getcontent(url,page):
     # contentpat='<div class="content">(.*?)</div>'
     # contentpat='<div class="content">(.*?)</div>'
     # userlist=re.compile(userpat,re.S).findall(data)
-    userlist=re.compile(userpat,re.S).findall(data)
+    userlist=retest.compile(userpat, retest.S).findall(data)
     print(userlist)
 
     # contentlist=re.compile(contentpat,re.S).findall(data)

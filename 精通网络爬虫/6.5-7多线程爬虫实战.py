@@ -3,7 +3,7 @@
 
 import threading
 import queue
-import re
+import retest
 import urllib.request
 import time
 import urllib.error
@@ -81,7 +81,7 @@ class geturl(threading.Thread):
             url="http://weixin.sougou.com/weixin?type=2&query="+keycode+pagecode+str(page)
             data1=use_proxy(self.proxy,url)
             listurlpat='<div class="txt_box">.*?(http://.*)"'
-            listurl.append(re.compile(listurlpat,re.S).findall(data1))
+            listurl.append(retest.compile(listurlpat, retest.S).findall(data1))
         print("get page "+str(len(listurl)))
         for i in range(0,len(listurl)):
             time.sleep(7)
@@ -126,8 +126,8 @@ class getcontent(threading.Thread):
                 data=use_proxy(self.proxy,url)
                 titlepat="<title>(.*?)</title>"
                 contentpat='id="js_content">(.*?)id="js_sq_bar"'
-                title=re.compile(titlepat).findall(data)
-                content=re.compile(contentpat,re.S).findall(data)
+                title=retest.compile(titlepat).findall(data)
+                content=retest.compile(contentpat, retest.S).findall(data)
                 thistitle="not this time"
                 thiscontent = "not this time"
                 if(title!=[]):

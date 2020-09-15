@@ -42,7 +42,7 @@
 
 import urllib.request
 import http.cookiejar
-import re
+import retest
 #视频编号
 vid="1472528692"
 #刚开始时候的评论ID
@@ -77,9 +77,9 @@ for i in range(1,10):
     data=craw(vid,comid)
     #第二层循环，根据抓取的结果提取并处理每条评论的信息，一页20条评论
     for j in range(0,20):
-        idlist=re.compile(idpat,re.S).findall(data)
-        userlist=re.compile(userpat,re.S).findall(data)
-        conlist=re.compile(conpat,re.S).findall(data)
+        idlist=retest.compile(idpat, retest.S).findall(data)
+        userlist=retest.compile(userpat, retest.S).findall(data)
+        conlist=retest.compile(conpat, retest.S).findall(data)
         print("用户名是 :"+eval('u"'+userlist[j]+'"'))
         print("评论内容是:"+eval('u"'+conlist[j]+'"'))
         print("\n")

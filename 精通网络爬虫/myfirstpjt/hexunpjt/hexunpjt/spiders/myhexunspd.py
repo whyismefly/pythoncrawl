@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-import re
+import retest
 import urllib.request
 from hexunpjt.items import HexunpjtItem
 from scrapy.http import Request
@@ -24,7 +24,7 @@ class MyhexunspdSpider(scrapy.Spider):
         item["url"]=response.xpath("//span[@class='ArticleTitleText']/a/@href").extract()
 
         pat1='<script type="text/javascript" src="(http://click.tool.hexun.com/.*?)">'
-        hcurl=re.compile(pat1).findall(str(response.body))[0]
+        hcurl=retest.compile(pat1).findall(str(response.body))[0]
         headers2 = ("User-Agent",
                    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.122 Safari/537.36 SE 2.X MetaSr 1.0")
         opener = urllib.request.build_opener()
@@ -38,13 +38,13 @@ class MyhexunspdSpider(scrapy.Spider):
         #pat3为提取文章评论数的正则表达式
         pat3="comment\d*?','(\d*?)'"
         #提取阅读数和评论数数据并分别赋值给item下的hits和comment
-        item["hits"]=re.compile(pat2).findall(str(data))
-        item["comment"]=re.compile(pat3).findall(str(data))
+        item["hits"]=retest.compile(pat2).findall(str(data))
+        item["comment"]=retest.compile(pat3).findall(str(data))
         yield item
         #提取博文列表页的总页数
         pat4="blog.hexun.com/p(.*?)/"
         #通过正则表达式获取到的数据为一个列表，倒数第二个元素为总页数
-        data2=re.compile(pat4).findall(str(response.body))
+        data2=retest.compile(pat4).findall(str(response.body))
         if(len(data2)>=2):
             totalurl=data2[-2]
         else:

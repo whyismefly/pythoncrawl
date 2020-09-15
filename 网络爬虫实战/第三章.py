@@ -20,7 +20,7 @@ import http.cookiejar, urllib.request
 
 
 import requests
-import re
+import retest
 
 # r=requests.get("https://github.com/favicon.ico")
 # with open("favicon.ico","wb") as f:
@@ -120,7 +120,7 @@ from requests import Request, Session
 # r = s.send(prepped)
 # print(r.text)
 
-import re
+import retest
 
 # content = 'Hello 123 4567 World_This is a Regex Demo'
 # print(len(content))
@@ -213,10 +213,10 @@ def main():
     html=get_one_page(url)
     print(html)
 def parse_one_page(html):
-    pattern = re.compile('<dd>.*?board-index.*?>(\d+)</i>.*?<a.*?src="(.*?)">.*?name"><a'
-                         + '.*?>(.*?)</a>.*?star">(.*?)</p>.*?releasetime">(.*?)</p>'
-                         + '.*?integer">(.*?)</i>.*?fraction">(.*?)</i>.*?</dd>', re.S)
-    items=re.findall(pattern,html)
+    pattern = retest.compile('<dd>.*?board-index.*?>(\d+)</i>.*?<a.*?src="(.*?)">.*?name"><a'
+                             + '.*?>(.*?)</a>.*?star">(.*?)</p>.*?releasetime">(.*?)</p>'
+                             + '.*?integer">(.*?)</i>.*?fraction">(.*?)</i>.*?</dd>', retest.S)
+    items=retest.findall(pattern, html)
     print(items)
     for item in items:
         yield {

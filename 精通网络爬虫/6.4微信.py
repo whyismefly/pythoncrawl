@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # encoding:utf-8
 
-import re
+import retest
 import urllib.request
 import time
 import urllib.error
@@ -41,7 +41,7 @@ def getlisturl(key,pagestart,pageend,proxy):
             url="http://weixin.sogou.com/weixin?type=2&query="+keycode+pagecode+str(page)
             data1=use_proxy(proxy,url)
             listurlpat='<div class="txt-box">.*?(http://.*?)"'
-            listurl.append(re.compile(listurlpat,re.S).findall(data1))
+            listurl.append(retest.compile(listurlpat, retest.S).findall(data1))
         print("total"+str(len(listurl)))
         return listurl
     except urllib.error.URLError as e:
@@ -75,8 +75,8 @@ def getcontent(listurl,proxy):
                 data=use_proxy(proxy,url)
                 titlepat="<title>(.*?)</title>"
                 contentpat = 'id="js_content">(.*?)id="js_sg_bar"'
-                title = re.compile(titlepat).findall(data)
-                content = re.compile(contentpat, re.S).findall(data)
+                title = retest.compile(titlepat).findall(data)
+                content = retest.compile(contentpat, retest.S).findall(data)
                 thistitle = "此次没有获取到"
                 thiscontent = "此次没有获取到"
                 if(title!=[]):

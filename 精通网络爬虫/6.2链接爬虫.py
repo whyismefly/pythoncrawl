@@ -1,7 +1,7 @@
 #!usr/bin/python3
 # encoding:utf-8
 
-import re
+import retest
 import urllib.request
 
 def getlink(url):
@@ -12,7 +12,7 @@ def getlink(url):
     file=urllib.request.urlopen(url)
     data=str(file.read())
     pat='(https?://[^\s)";]+\.(\w|/)*)'
-    link=re.compile(pat).findall(data)
+    link=retest.compile(pat).findall(data)
     link=list(set(link))
     return link
 url="http://blog.csdn.net"
